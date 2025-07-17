@@ -22,6 +22,7 @@ function App() {
   const [showChat, setShowChat] = useState(false)
   const [showPremiumGate, setShowPremiumGate] = useState(false)
   const [showVideoAd, setShowVideoAd] = useState(false)
+  const [showBannerAd, setShowBannerAd] = useState(true)
   const [isPremium, setIsPremium] = useState(false)
 
   // Auth state management
@@ -150,7 +151,13 @@ function App() {
         </div>
 
         {/* Ad Banner for non-premium users */}
-        <AdBanner type="banner" isPremium={isPremium} />
+        {showBannerAd && (
+          <AdBanner 
+            type="banner" 
+            isPremium={isPremium} 
+            onClose={() => setShowBannerAd(false)}
+          />
+        )}
 
         {/* Active Filters */}
         {(selectedCategory || searchQuery) && (
@@ -273,11 +280,13 @@ function App() {
       />
 
       {/* Video Ad */}
-      <AdBanner
-        type="video"
-        isPremium={isPremium}
-        onClose={() => setShowVideoAd(false)}
-      />
+      {showVideoAd && (
+        <AdBanner
+          type="video"
+          isPremium={isPremium}
+          onClose={() => setShowVideoAd(false)}
+        />
+      )}
     </div>
   )
 }
